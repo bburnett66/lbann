@@ -5,9 +5,9 @@ import lbann.models
 default_config = mp_config.Config()
 
 def mp_model(model, config=default_config):
-	layers = model.layers
+	new_model = model
 
-	for l in layers:
+	for l in new_model.layers:
 		if l.datatype:
 			#If the datatype is already set by the user then skip it
 			continue
@@ -48,6 +48,4 @@ def mp_model(model, config=default_config):
 	    print(f'Num children:\t{len(l.children)}')
 	    print()
 
-	model.layers = layers
-
-	#TODO Modify the objective function. Not quite sure how to do this yet...
+	return new_model 
