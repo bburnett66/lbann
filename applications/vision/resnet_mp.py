@@ -159,13 +159,13 @@ for l, w in zip(model.layers, model.weights):
 opt = lbann.contrib.args.create_optimizer(args)
 
 # Setup data reader
-#data_reader = data.imagenet.make_data_reader(num_classes=args.num_classes)
+data_reader = data.imagenet.make_data_reader(num_classes=args.num_classes)
 
 # Setup trainer
-#trainer = lbann.Trainer(mini_batch_size=args.mini_batch_size, random_seed=args.random_seed)
+trainer = lbann.Trainer(mini_batch_size=args.mini_batch_size, random_seed=args.random_seed)
 
 # Run experiment
-#kwargs = lbann.contrib.args.get_scheduler_kwargs(args)
-#lbann.contrib.launcher.run(trainer, model, data_reader, opt,
-#                           job_name=args.job_name,
-#                           **kwargs)
+kwargs = lbann.contrib.args.get_scheduler_kwargs(args)
+lbann.contrib.launcher.run(trainer, model, data_reader, opt,
+                           job_name=args.job_name,
+                           **kwargs)

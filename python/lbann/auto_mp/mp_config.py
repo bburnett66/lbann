@@ -55,7 +55,7 @@ class Config:
 		'Softmax',
 	] 
 
-	# Run the model mutation algorithm, but in print only mode
+	# Run the model mutation algorithm in print only mode
 	_dry_run = True
 
 	# Force using fp16 onto the GPU
