@@ -22,7 +22,7 @@ def mp_model(model, config=default_config):
 			continue
 
 		# 
-		if l.__class__.__name in config.fp16_allow_list:
+		if l.__class__.__name__ in config.fp16_allow_list:
 			if config._dry_run:
 				print(f"Modifying layer {l.__class__.__name__} to be fp16")
 			else:
@@ -35,7 +35,7 @@ def mp_model(model, config=default_config):
 					#TODO: Update the layers device
 					print("TODO")
 
-		if l.__class__.__name in config.fp32_allow_list:
+		if l.__class__.__name__ in config.fp32_allow_list:
 			if config._dry_run:
 				print(f"Modifying layer {l.__class__.__name__} to be fp32")
 			else:

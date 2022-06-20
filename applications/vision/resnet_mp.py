@@ -1,6 +1,6 @@
 import argparse
 import lbann
-import lbann.auto_mp.mp_model
+import lbann.auto_mp as mp 
 import lbann.models
 import lbann.models.resnet
 import lbann.contrib.args
@@ -144,7 +144,7 @@ model = lbann.Model(args.num_epochs,
 
 # Mutate model for mixed precision training
 
-model = mp_model(model)
+model = mp.mp_model(model)
 
 # Setup optimizer
 opt = lbann.contrib.args.create_optimizer(args)
