@@ -1,3 +1,6 @@
+
+import lbann
+
 # Convenient bash to get all layers from the protobuf definition
 # awk 'NR >= 138 && NR <= 231' src/proto/layers.proto | awk '{print $1}' > python/lbann/auto_mp/mp_config.py
 
@@ -11,6 +14,10 @@ class Config:
 	fit. 
 	Layers not included here will be ignored and left at the
 	default precision.
+	It is my current understanding that setting the layers
+	type sets the working precision during training and setting
+	the type of the weights sets the main copy of weights used
+	with the optimizer (6-20-22)
 	"""
 	# Allow List of layers safe to be set to half precision
 	fp16_allow_list = [
@@ -24,7 +31,7 @@ class Config:
 		# Activation Layers
 		'Relu',
 	]
-	# Allow List of layers safe to be set to half precision
+	# Allow List of layers safe to be set to single precision
 	fp32_allow_list = [
 		# Loss Layers
 		'CrossEntropy',
@@ -53,6 +60,10 @@ class Config:
 
 	# Force using fp16 onto the GPU
 	_fp16_use_gpu = True
+
+	# Data type for the main copy of weights
+	# datatypes: https://github.com/LLNL/lbann/blob/develop/src/proto/datatype.proto
+	_model_weights_type = lbann.DataType.FLOAT
 
 	#Add/remove layers from the config lists.
 	def add_fp16_layer(self, layer_name):

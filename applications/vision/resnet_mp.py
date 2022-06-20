@@ -143,18 +143,20 @@ model = lbann.Model(args.num_epochs,
                     callbacks=callbacks)
 
 # Mutate model for mixed precision training
-
-model = mp.mp_model(model)
-
+conf = mp.Config()
+conf._dry_run = False
+model = mp.mp_model(model, conf)
+"""
+for l, w in zip(model.layers, model.weights):
+    print(f'Layer:\t\t\t{l.__class__.__name__}')
+    print(f'Layer data type:\t{l.datatype}')
+    print(f'Weight data type:\t{w.datatype}')
+    print(f'Device:\t\t\t{l.device}')
+    print(f'Num children:\t{len(l.children)}')
+    print()
+"""
 # Setup optimizer
 opt = lbann.contrib.args.create_optimizer(args)
-
-#for l in model.layers:
-#    print(f'layer:\t\t{l.__class__.__name__}')
-#    print(f'Data type:\t{l.datatype}')
-#    print(f'Device:\t\t{l.device}')
-#    print(f'Num children:\t{len(l.children)}')
-#    print()
 
 # Setup data reader
 #data_reader = data.imagenet.make_data_reader(num_classes=args.num_classes)
