@@ -42,10 +42,10 @@ def mp_model(model, config=default_config):
 				#TODO: Update the layers datatype
 				print("TODO")
 		
-	    print(f'layer:\t\t{l.__class__.__name__}')
-	    print(f'Data type:\t{l.datatype}')
-	    print(f'Device:\t\t{l.device}')
-	    print(f'Num children:\t{len(l.children)}')
-	    print()
+		print(f'layer:\t\t{l.__class__.__name__}')
+		print(f'Data type:\t{l.datatype}')
+		print(f'Device:\t\t{l.device}')
+		print(f'Num children:\t{len(l.children)}')
+		print()
 
 	return new_model 
