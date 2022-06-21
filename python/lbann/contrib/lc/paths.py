@@ -50,7 +50,7 @@ def imagenet_dir(system = system(), data_set = 'training',
 
     """
     base_path = parallel_file_system_path(system)
-    base_path += 'lbann/datasets/ILSVRC2012/original/'
+    base_path += 'lbann/datasets/ILSVRC2012/'
     if data_set.lower() in ('train', 'training'):
         return base_path + 'train/'
     elif data_set.lower() in ('val', 'validation'):
@@ -81,7 +81,7 @@ def imagenet_labels(system = system(), data_set = 'train',
     """
     label_dir = parallel_file_system_path(system)
     if system in ('lassen', 'sierra'):
-        label_dir += 'lbann/datasets/ILSVRC2012/original/labels/'
+        label_dir += 'lbann/datasets/ILSVRC2012/labels/'
     else:
         label_dir += 'lbann/datasets/ILSVRC2012/labels/'
     suffixes = {1000: '', 10: '_c0-9', 100: '_c0-99',
