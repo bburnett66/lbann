@@ -59,7 +59,7 @@ class Config:
 	_dry_run = True
 
 	# Force using fp16 onto the GPU
-	_fp16_use_gpu = True
+	_fp16_use_gpu = False # Currently buggy
 
 	# Data type for the main copy of weights
 	# datatypes: https://github.com/LLNL/lbann/blob/develop/src/proto/datatype.proto

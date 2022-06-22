@@ -29,12 +29,19 @@ def mp_model(model, config=default_config):
 				# Update the layers datatype, weights datatype should be different
 				l.datatype = lbann.DataType.FP16 
 				w.datatype = config._model_weights_type
+			"""
+			#FIXME
+			# Python complains that lbann.DeviceAllocation.GPU is an int 
+			# and not a bytes object when creating the experiment protobuf.
+			# Layers/weights are just fine, so I might be using the wrong
+			# protobuf for devices
 			if config._fp16_use_gpu:
 				if config._dry_run:
 					print(f"Modifying same layer's device to be gpu")
 				else:
 					# Update the layers device
 					l.device = lbann.DeviceAllocation.GPU 
+			"""
 			if config._dry_run:
 				print() #new line for more readable dry run
 
