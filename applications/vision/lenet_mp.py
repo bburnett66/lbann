@@ -1,5 +1,6 @@
 import argparse
 import lbann
+import lbann.models
 import lbann.auto_mp as mp 
 import data.mnist
 import lbann.contrib.args
@@ -26,40 +27,9 @@ images = lbann.Input(data_field='samples')
 labels = lbann.Input(data_field='labels')
 
 # LeNet
-x = lbann.Convolution(images,
-                      num_dims = 2,
-                      num_output_channels = 6,
-                      num_groups = 1,
-                      conv_dims_i = 5,
-                      conv_strides_i = 1,
-                      conv_dilations_i = 1,
-                      has_bias = True)
-x = lbann.Relu(x)
-x = lbann.Pooling(x,
-                  num_dims = 2,
-                  pool_dims_i = 2,
-                  pool_strides_i = 2,
-                  pool_mode = "max")
-x = lbann.Convolution(x,
-                      num_dims = 2,
-                      num_output_channels = 16,
-                      num_groups = 1,
-                      conv_dims_i = 5,
-                      conv_strides_i = 1,
-                      conv_dilations_i = 1,
-                      has_bias = True)
-x = lbann.Relu(x)
-x = lbann.Pooling(x,
-                  num_dims = 2,
-                  pool_dims_i = 2,
-                  pool_strides_i = 2,
-                  pool_mode = "max")
-x = lbann.FullyConnected(x, num_neurons = 120, has_bias = True)
-x = lbann.Relu(x)
-x = lbann.FullyConnected(x, num_neurons = 84, has_bias = True)
-x = lbann.Relu(x)
-x = lbann.FullyConnected(x, num_neurons = 10, has_bias = True)
-probs = lbann.Softmax(x)
+preds = lbann.models.LeNet(10)(images) #MNIST is 10 input labels
+probs = lbann.Softmax(preds)
+layers = list(lbann.traverse_layer_graph([images, labels]))
 
 # Loss function and accuracy
 loss = lbann.CrossEntropy(probs, labels)
@@ -73,8 +43,8 @@ acc = lbann.CategoricalAccuracy(probs, labels)
 mini_batch_size = 64
 num_epochs = 20
 model = lbann.Model(num_epochs,
-                    layers=lbann.traverse_layer_graph([images, labels]),
-                    objective_function=loss,
+                    layers=layers,
+                    objective_function=lbann.ObjectiveFunction([loss]),
                     metrics=[lbann.Metric(acc, name='accuracy', unit='%')],
                     callbacks=[lbann.CallbackPrintModelDescription(),
                                lbann.CallbackPrint(),

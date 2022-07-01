@@ -26,7 +26,7 @@ images = lbann.Input(data_field='samples')
 labels = lbann.Input(data_field='labels')
 
 # LeNet
-preds = lbann.models.LeNet(labels)(images)
+preds = lbann.models.LeNet(10)(images) #MNIST is 10 input labels
 probs = lbann.Softmax(preds)
 layers = list(lbann.traverse_layer_graph([images, labels]))
 
