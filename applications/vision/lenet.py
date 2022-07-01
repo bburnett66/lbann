@@ -1,5 +1,6 @@
 import argparse
 import lbann
+import lbann.models
 import data.mnist
 import lbann.contrib.args
 import lbann.contrib.launcher
@@ -25,6 +26,7 @@ images = lbann.Input(data_field='samples')
 labels = lbann.Input(data_field='labels')
 
 # LeNet
+"""
 x = lbann.Convolution(images,
                       num_dims = 2,
                       num_output_channels = 6,
@@ -58,7 +60,10 @@ x = lbann.Relu(x)
 x = lbann.FullyConnected(x, num_neurons = 84, has_bias = True)
 x = lbann.Relu(x)
 x = lbann.FullyConnected(x, num_neurons = 10, has_bias = True)
-probs = lbann.Softmax(x)
+"""
+
+preds = lbann.models.LeNet(imagenet_labels)(images)
+probs = lbann.Softmax(preds)
 
 # Loss function and accuracy
 loss = lbann.CrossEntropy(probs, labels)
