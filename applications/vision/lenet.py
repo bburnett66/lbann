@@ -62,7 +62,7 @@ x = lbann.Relu(x)
 x = lbann.FullyConnected(x, num_neurons = 10, has_bias = True)
 """
 
-preds = lbann.models.LeNet(imagenet_labels)(images)
+preds = lbann.models.LeNet(labels)(images)
 probs = lbann.Softmax(preds)
 
 # Loss function and accuracy
