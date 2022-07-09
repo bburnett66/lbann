@@ -63,7 +63,10 @@ class Config:
 
 	# Data type for the main copy of weights
 	# datatypes: https://github.com/LLNL/lbann/blob/develop/src/proto/datatype.proto
-	_model_weights_type = lbann.DataType.FLOAT
+	_model_weights_type = lbann.DataType.FP16
+
+	# Set whether to use tensor cores for convolution layers
+	_conv_use_tensor_core = True 
 
 	#Add/remove layers from the config lists.
 	def add_fp16_layer(self, layer_name):

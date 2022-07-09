@@ -63,6 +63,7 @@ model = lbann.Model(args.num_epochs,
 
 # Mutate model for mixed precision training
 conf = mp.Config()
+conf.add_fp16_layer("Pooling")
 conf._dry_run = False
 model = mp.mp_model(model, conf)
 
