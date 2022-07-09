@@ -43,7 +43,7 @@ def mp_model(model, config=default_config):
 				l.datatype = lbann.DataType.FP16 
 				w.datatype = config._model_weights_type
 				if config._conv_use_tensor_core and (l.__class__.__name__ == 'Convolution'):
-					l.conv_tensor_op_mode.USE_TENSOR_OPS
+					l.conv_tensor_op_mode = lbann.ConvTensorOpsMode.NO_TENSOR_OPS
 			"""
 			#FIXME
 			# Python complains that lbann.DeviceAllocation.GPU is an int 
