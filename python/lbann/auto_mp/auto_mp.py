@@ -33,17 +33,15 @@ def mp_model(model, config=default_config):
 		if l.__class__.__name__ in config.fp16_allow_list:
 			if config._dry_run:
 				print(f"Modifying layer to be fp16")
-				if config._conv_use_tensor_core and (l.__class__.__name__ == 'Convolution'):
-					print(f"Layer will use tensor cores")
-				else:
-					print(f"Config: {config._conv_use_tensor_core} name: {l.__class__.__name__}")
-					print(f"Layer will NOT use tensor cores")
+				if l.__class__.__name__ == 'Convolution':
+					print(f"Layer tensor core mode: {config._conv_tensor_core_mode}")
+
 			else:
 				# Update the layers datatype, weights datatype should be different
 				l.datatype = lbann.DataType.FP16 
 				w.datatype = config._model_weights_type
-				if config._conv_use_tensor_core and (l.__class__.__name__ == 'Convolution'):
-					l.conv_tensor_op_mode = lbann.ConvTensorOpsMode.NO_TENSOR_OPS
+				if l.__class__.__name__ == 'Convolution':
+					l.conv_tensor_op_mode = config._conv_tensor_core_mode
 			"""
 			#FIXME
 			# Python complains that lbann.DeviceAllocation.GPU is an int 

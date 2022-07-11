@@ -63,10 +63,15 @@ class Config:
 
 	# Data type for the main copy of weights
 	# datatypes: https://github.com/LLNL/lbann/blob/develop/src/proto/datatype.proto
-	_model_weights_type = lbann.DataType.FP16
+	"""
+	FIXME:
+	DataType.FP16 breaks lbann with the error `std::bad_cast` for alexnet
+	but not LeNet. Not sure what would be going on here.
+	"""
+	_model_weights_type = lbann.DataType.FLOAT 
 
-	# Set whether to use tensor cores for convolution layers
-	_conv_use_tensor_core = True 
+	# Set the tensor core mode for convolutional layers
+	_conv_tensor_core_mode = lbann.ConvTensorOpsMode.USE_TENSOR_OPS
 
 	#Add/remove layers from the config lists.
 	def add_fp16_layer(self, layer_name):
